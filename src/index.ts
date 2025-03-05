@@ -1,6 +1,9 @@
-console.log("Hello from my browser extension!");
+console.log("hi");
 
-// Add a listener for when the extension is installed
-chrome.runtime.onInstalled.addListener(() => {
-  console.log("Extension installed!");
-});
+const div = document.createElement("div");
+div.style.color = "red";
+div.style.fontSize = "20px";
+
+div.innerHTML = "Hello, World!";
+
+document.body.appendChild(div);
