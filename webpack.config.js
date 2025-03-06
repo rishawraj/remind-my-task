@@ -1,12 +1,20 @@
 const path = require("path");
 
 module.exports = {
-  mode: "production",
-  entry: "./src/index.ts",
+  entry: {
+    content: "./src/content/index.ts",
+    background: "./src/background/index.ts",
+    popup: "./src/popup/index.ts",
+  },
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "[name].js",
+    clean: true, // This will clean the dist folder before each build
+  },
   module: {
     rules: [
       {
-        test: /\.ts$/,
+        test: /\.tsx?$/,
         use: "ts-loader",
         exclude: /node_modules/,
       },
@@ -15,9 +23,9 @@ module.exports = {
   resolve: {
     extensions: [".ts", ".js"],
   },
-  output: {
-    filename: "bundle.js",
-    path: path.resolve(__dirname, "dist"),
+  optimization: {
+    // Ensures output is CSP compliant
+    minimize: false,
   },
-  target: "webworker",
+  devtool: false, // Prevents eval usage in source maps
 };

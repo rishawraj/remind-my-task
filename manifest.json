@@ -3,12 +3,21 @@
   "name": "Remind My Task",
   "version": "1.0",
   "description": "A simple browser extension using TypeScript.",
-  "permissions": ["activeTab"],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
+  "permissions": ["activeTab", "storage", "notifications"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["dist/content.js"]
+    }
+  ],
   "background": {
-    "service_worker": "dist/bundle.js"
+    "service_worker": "dist/background.js"
   },
   "action": {
-    "default_popup": "popup.html",
+    "default_popup": "popup/popup.html",
     "default_icon": {
       "16": "images/icon16.png",
       "48": "images/icon48.png",
